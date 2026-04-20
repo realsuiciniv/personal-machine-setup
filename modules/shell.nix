@@ -1,0 +1,95 @@
+{ config, pkgs, lib, ... }:
+{
+  programs.zsh = {
+    enable = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = false;      # fast-syntax-highlighting replaces it
+    historySubstringSearch.enable = true;
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "macos" "fzf" ];
+    };
+
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ../dotfiles/zsh;
+        file = ".p10k.zsh";
+      }
+      {
+        name = "fast-syntax-highlighting";
+        src = pkgs.zsh-fast-syntax-highlighting;
+        file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
+      }
+    ];
+
+    shellAliases = {
+      # Claude helpers
+      claude-unsafe = "claude --dangerously-skip-permissions";
+      claude-update = "claude update";
+
+      # Modern replacements
+      ls  = "eza";
+      ll  = "eza -l --git";
+      la  = "eza -la --git";
+      cat = "bat --plain --paging=never";
+
+      # Git
+      g   = "git";
+      gs  = "git status";
+      gd  = "git diff";
+    };
+
+    initExtra = ''
+      setopt NO_NOMATCH
+      eval "$(fnm env --use-on-cd --shell zsh)"
+
+      # brew guardrail: brew is reserved for casks on this machine.
+      brew() {
+        case "$1" in
+          install|reinstall|upgrade)
+            if [[ " $* " != *" --cask "* ]] && [[ "$2" != "--cask" ]]; then
+              print -P "%F{red}✗ brew is reserved for casks on this machine.%f"
+              print "  Formulae are managed by nix (~/projects/personal/personal-machine-setup/modules/cli.nix)."
+              print "  - Cask install:   brew install --cask <name>"
+              print "  - Escape hatch:   command brew $*"
+              return 1
+            fi
+            ;;
+        esac
+        command brew "$@"
+      }
+    '';
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    USE_BUILTIN_RIPGREP = "0";
+    BUN_INSTALL = "${config.home.homeDirectory}/.bun";
+    DOTNET_ROOT = "${pkgs.dotnet-sdk}/libexec";
+  };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.bun/bin"
+    "${config.home.homeDirectory}/.dotnet/tools"
+    "${config.home.homeDirectory}/.local/bin"
+    "${config.home.homeDirectory}/projects/cross-product/clutch-cli"
+  ];
+}

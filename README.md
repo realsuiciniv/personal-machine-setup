@@ -1,7 +1,7 @@
 # personal-machine-setup
 
 Declarative Nix (home-manager, standalone) setup for my personal Mac.
-Brew handles GUI casks only; every CLI tool is managed by Nix.
+GUI apps (casks) are installed by hand; every CLI tool is managed by Nix.
 
 ## Architecture
 
@@ -28,8 +28,8 @@ Then:
 
 ```bash
 chsh -s "$(which zsh)"                 # switch login shell
-brew bundle --file=Brewfile            # install GUI casks
 ./scripts/macos-defaults.sh            # apply system defaults
+# Install GUI apps by hand as you go (cursor, ghostty, 1Password, etc.).
 # Sign into 1Password, enable SSH agent, add public key to GitHub.
 ```
 
@@ -51,7 +51,7 @@ git revert HEAD && home-manager switch --flake .#personal-laptop
 
 - CLI tool → edit `modules/cli.nix`.
 - Language toolchain → edit `modules/languages.nix`.
-- GUI cask → edit `Brewfile`, then `brew bundle`.
+- GUI app → install by hand via brew/app store/direct download.
 
 ## Per-project dev shells
 

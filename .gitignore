@@ -1,0 +1,29 @@
+# Nix build artifacts
+result
+result-*
+.direnv/
+
+# Editor cruft
+.DS_Store
+*.swp
+.vscode/
+
+# Never commit an age private key
+**/age/keys.txt
+**/age-keys.txt
+*.age
+
+# Never commit PLAINTEXT secret drafts. Only secrets/secrets.yaml
+# (sops-encrypted) may be committed. Anything else under secrets/ is blocked.
+secrets/*.plain
+secrets/*.plain.yaml
+secrets/*.decrypted
+secrets/*.unencrypted
+!secrets/.sops.yaml
+!secrets/secrets.yaml
+
+# Scratch
+scratch/
+~/scratch/
+*.env
+*.env.local

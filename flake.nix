@@ -42,6 +42,10 @@
           path = ./templates/java;
           description = "JVM dev shell on Temurin 25 + maven + gradle";
         };
+        python = {
+          path = ./templates/python;
+          description = "Python dev shell; reads major.minor from .python-version if present; uv for deps";
+        };
       };
     };
 }

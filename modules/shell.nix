@@ -78,12 +78,21 @@
     enableZshIntegration = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
     USE_BUILTIN_RIPGREP = "0";
     BUN_INSTALL = "${config.home.homeDirectory}/.bun";
     DOTNET_ROOT = "${pkgs.dotnet-sdk}/libexec";
+    # sops looks at macOS default (~/Library/Application Support/sops/age/keys.txt)
+    # but we store the key under XDG. Point sops at it for every shell.
+    SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   };
 
   home.sessionPath = [

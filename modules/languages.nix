@@ -8,7 +8,7 @@
     temurin-bin-25
 
     # Python + userland tools
-    python313
+    python314
     pipx
     uv
 

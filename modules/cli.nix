@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     # Search / view
-    ripgrep fd bat eza jq yq-go glow lynx
+    ripgrep fd bat eza jq yq-go glow
 
     # Git-adjacent
     git-delta lazygit gh
@@ -16,11 +16,8 @@
     # Security / certs
     mkcert
 
-    # Dotfile tooling
-    stow
-
-    # Build / native deps
-    ninja pkg-config openssl_3 readline xz zlib
+    # Native-dep libs (for building tools like imagemagick below)
+    pkg-config openssl_3 readline xz zlib
 
     # Imaging
     imagemagick ghostscript potrace
@@ -32,6 +29,6 @@
     pgcli
 
     # Misc
-    jsonlint tmux
+    tmux
   ];
 }

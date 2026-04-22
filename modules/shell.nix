@@ -111,6 +111,6 @@
     "${config.home.homeDirectory}/.bun/bin"
     "${config.home.homeDirectory}/.dotnet/tools"
     "${config.home.homeDirectory}/.local/bin"
-    "${config.home.homeDirectory}/projects/cross-product/clutch-cli"
+    "${config.home.homeDirectory}/projects/clutch/clutch-cli"
   ];
 }

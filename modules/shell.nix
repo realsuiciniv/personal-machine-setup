@@ -44,6 +44,10 @@
       g   = "git";
       gs  = "git status";
       gd  = "git diff";
+
+      # Containers (colima lifecycle — not autostarted)
+      coup   = "colima start && docker ps";
+      codown = "colima stop";
     };
 
     initExtra = ''

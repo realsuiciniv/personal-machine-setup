@@ -21,18 +21,8 @@
       fi
     '';
 
-  # Declarative Claude Code config (plumbing only).
-  home.file = {
-    ".claude/CLAUDE.md".source     = ../dotfiles/claude/CLAUDE.md;
-    ".claude/settings.json".source = ../dotfiles/claude/settings.json;
-    ".claude/.mcp.json".source     = ../dotfiles/claude/.mcp.json;
-    ".claude/statusline.sh" = {
-      source = ../dotfiles/claude/statusline.sh;
-      executable = true;
-    };
-    ".claude/hooks/prefer-rg-fd.sh" = {
-      source = ../dotfiles/claude/hooks/prefer-rg-fd.sh;
-      executable = true;
-    };
-  };
+  # Claude Code writes to ~/.claude/settings.json (and other files) at
+  # runtime, so we intentionally do not symlink them from the nix store.
+  # Config lives under ~/.claude/ as regular writable files, owned by
+  # Claude Code, not home-manager.
 }

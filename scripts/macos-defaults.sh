@@ -23,9 +23,14 @@ echo "→ Privacy: disable Spotlight/Siri web suggestions"
 # Stop Spotlight/Finder search from sending queries to Apple for "suggestions"
 defaults write com.apple.suggestions SuggestionsAppLibraryEnabled -bool false
 defaults write com.apple.assistant.support "Assistant Enabled" -bool false
-# Disable Safari's universal search (routes queries through Apple's servers)
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+# Disable Safari's universal search (routes queries through Apple's servers).
+# NOTE: Safari prefs are SIP-protected — these only succeed if the calling
+# process has Full Disk Access (System Settings → Privacy & Security → FDA).
+# If missing, skip silently and let the rest of the script run. Configure in
+# Safari → Settings → Search manually if Safari is a primary browser.
+defaults write com.apple.Safari UniversalSearchEnabled -bool false 2>/dev/null || \
+  echo "  (skipped: com.apple.Safari writes need Full Disk Access)"
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true 2>/dev/null || true
 
 echo "→ Screencapture"
 mkdir -p "$HOME/Pictures/Screenshots"

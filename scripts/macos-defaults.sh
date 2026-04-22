@@ -45,6 +45,8 @@ echo "→ Keyboard"
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+# F1/F2/etc. are real function keys. Hold Fn for brightness/media/volume.
+defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
 echo "→ Restart affected services"
 killall Dock Finder SystemUIServer 2>/dev/null || true

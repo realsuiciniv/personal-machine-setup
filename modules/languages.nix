@@ -20,6 +20,7 @@
     # JavaScript runtimes/toolchain
     bun
     pnpm
+    ni          # antfu's universal wrapper: picks npm/yarn/pnpm/bun per project
 
     # .NET
     dotnet-sdk

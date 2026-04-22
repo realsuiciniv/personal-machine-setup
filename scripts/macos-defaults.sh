@@ -48,6 +48,27 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # F1/F2/etc. are real function keys. Hold Fn for brightness/media/volume.
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
+echo "→ Login shell (nix zsh)"
+NIX_ZSH="$HOME/.nix-profile/bin/zsh"
+if [ -x "$NIX_ZSH" ]; then
+  # Add to /etc/shells if missing (sudo required)
+  if ! grep -qxF "$NIX_ZSH" /etc/shells 2>/dev/null; then
+    echo "  Adding $NIX_ZSH to /etc/shells (needs sudo)..."
+    echo "$NIX_ZSH" | sudo tee -a /etc/shells >/dev/null
+  fi
+  # chsh if not already the login shell (asks for user password)
+  CURRENT_SHELL=$(dscl . -read "/Users/$(whoami)" UserShell 2>/dev/null | awk '{print $2}')
+  if [ "$CURRENT_SHELL" != "$NIX_ZSH" ]; then
+    echo "  Changing login shell to nix zsh (needs your user password)..."
+    chsh -s "$NIX_ZSH"
+    echo "  Fully quit + relaunch your terminal app for the change to take effect."
+  else
+    echo "  Already on nix zsh."
+  fi
+else
+  echo "  Skipped: $NIX_ZSH not found. Run home-manager switch first."
+fi
+
 echo "→ Restart affected services"
 killall Dock Finder SystemUIServer 2>/dev/null || true
 

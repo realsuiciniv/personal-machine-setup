@@ -48,6 +48,10 @@
       # Containers (colima lifecycle — not autostarted)
       coup   = "colima start && docker ps";
       codown = "colima stop";
+
+      # Home-manager lifecycle (absolute path — works from any cwd)
+      hms = "home-manager switch --flake ~/projects/personal/personal-machine-setup#personal-laptop";
+      hmu = "(cd ~/projects/personal/personal-machine-setup && nix flake update && home-manager switch --flake .#personal-laptop)";
     };
 
     initExtra = ''

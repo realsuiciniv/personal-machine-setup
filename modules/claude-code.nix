@@ -8,11 +8,16 @@
   #   - curl (nix-provided, for fetches)
   #   - shasum (macOS system tool at /usr/bin/shasum, for checksum verification)
   #   - standard unix tools (tar, mktemp, etc — all at /usr/bin or /bin)
+  # PATH change is wrapped in a subshell so it doesn't leak to subsequent
+  # activation steps (which depend on GNU coreutils — e.g., linkGeneration
+  # uses `readlink -e` which BSD readlink at /usr/bin does not support).
   home.activation.installClaudeCode =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if ! command -v claude >/dev/null 2>&1 && [ ! -x "$HOME/.local/bin/claude" ]; then
-        export PATH="${pkgs.curl}/bin:/usr/bin:/bin:$PATH"
-        curl -fsSL https://claude.ai/install.sh | bash
+        (
+          export PATH="${pkgs.curl}/bin:/usr/bin:/bin:$PATH"
+          curl -fsSL https://claude.ai/install.sh | bash
+        )
       fi
     '';
 

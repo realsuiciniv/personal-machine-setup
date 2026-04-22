@@ -25,9 +25,6 @@
     # Imaging
     imagemagick ghostscript potrace
 
-    # Datadog
-    pup
-
     # Postgres client (psql, pg_dump, pg_restore, libpq.dylib). Server NOT installed.
     libpq
 

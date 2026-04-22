@@ -9,6 +9,7 @@
     ../../modules/containers.nix
     ../../modules/ssh.nix
     ../../modules/claude-code.nix
+    ../../modules/pup.nix
     ../../modules/secrets.nix
   ];
 

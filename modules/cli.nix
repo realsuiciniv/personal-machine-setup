@@ -13,8 +13,11 @@
     # System / process
     bottom coreutils
 
-    # Security / certs
-    mkcert
+    # Security / certs / crypto
+    mkcert gnupg
+
+    # Cloud CLIs
+    awscli2
 
     # Native-dep libs (for building tools like imagemagick below)
     pkg-config openssl_3 readline xz zlib
@@ -25,10 +28,16 @@
     # Datadog
     pup
 
+    # Postgres client (psql, pg_dump, pg_restore, libpq.dylib). Server NOT installed.
+    libpq
+
     # DB tools
     pgcli
 
     # Misc
     tmux
   ];
+
+  # Vendored pgcli config (syntax/color preferences). No DSNs stored here.
+  xdg.configFile."pgcli/config".source = ../dotfiles/pgcli/config;
 }

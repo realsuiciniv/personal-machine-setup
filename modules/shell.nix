@@ -101,6 +101,10 @@
     # sops looks at macOS default (~/Library/Application Support/sops/age/keys.txt)
     # but we store the key under XDG. Point sops at it for every shell.
     SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    # Point ssh / ssh-keygen at the 1Password SSH agent socket. The IdentityAgent
+    # line in ssh_config covers `ssh`, but ssh-keygen (used by git signing)
+    # doesn't read ssh_config — it only honors SSH_AUTH_SOCK.
+    SSH_AUTH_SOCK = "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
 
   home.sessionPath = [

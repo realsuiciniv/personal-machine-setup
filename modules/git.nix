@@ -3,11 +3,18 @@
   programs.git = {
     enable = true;
 
+    # Signing config — unified sub-module (replaces scattered
+    # settings.user.signingkey / settings.commit.gpgsign / settings.gpg.format)
+    signing = {
+      format = "ssh";
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+      signByDefault = true;
+    };
+
     settings = {
       user = {
-        name       = "Vinicius Costa";
-        email      = "vinicius.costa@withclutch.com";
-        signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+        name  = "Vinicius Costa";
+        email = "vinicius.costa@withclutch.com";
       };
 
       init.defaultBranch = "main";
@@ -53,11 +60,7 @@
       branch.sort = "-committerdate";
       tag.sort = "version:refname";
 
-      commit = {
-        verbose = true;
-        gpgsign = true;
-      };
-      gpg.format = "ssh";
+      commit.verbose = true;
 
       url."https://github.com/dracula/".insteadOf = "dracula://";
 

@@ -17,7 +17,7 @@
   # Export secret env vars at zsh startup. Reference each secret's resolved
   # path directly so this stays correct regardless of where sops-nix writes.
   # Each read is guarded; absent files no-op.
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     _load_secret() {
       local var="$1" file="$2"
       [[ -r "$file" ]] && export "$var=$(<"$file")"

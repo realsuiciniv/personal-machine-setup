@@ -54,7 +54,7 @@
       hmu = "(cd ~/projects/personal/personal-machine-setup && nix flake update && home-manager switch --flake .#personal-laptop)";
     };
 
-    initExtra = ''
+    initContent = ''
       setopt NO_NOMATCH
       eval "$(fnm env --use-on-cd --shell zsh)"
 

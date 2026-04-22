@@ -34,6 +34,11 @@
     CPPFLAGS = "-I${pkgs.llvm.dev}/include";
   };
 
+  # Home-level .nvmrc: fnm's --use-on-cd walks up from $PWD, so any dir under
+  # $HOME without its own .nvmrc falls back to this, and leaving a project
+  # snaps node back to v24 instead of sticking on the project's version.
+  home.file.".nvmrc".text = "24";
+
   # Bootstrap Node 24 LTS on first home-manager switch.
   # Idempotent: skipped if v24 is already installed.
   # Per-project .nvmrc still wins via fnm's --use-on-cd hook in modules/shell.nix.

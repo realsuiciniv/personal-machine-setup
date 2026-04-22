@@ -4,13 +4,14 @@
   home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
   # Install Claude Code via Anthropic's native installer, only if not already present.
-  # The installer script (fetched via curl and piped to bash) internally runs
-  # `command -v curl` to pick a downloader for its nested fetches — so curl needs
-  # to be on PATH for the child bash, not just reachable by nix store path.
+  # Activation hooks run with a minimal PATH; the install.sh script needs:
+  #   - curl (nix-provided, for fetches)
+  #   - shasum (macOS system tool at /usr/bin/shasum, for checksum verification)
+  #   - standard unix tools (tar, mktemp, etc — all at /usr/bin or /bin)
   home.activation.installClaudeCode =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if ! command -v claude >/dev/null 2>&1 && [ ! -x "$HOME/.local/bin/claude" ]; then
-        export PATH="${pkgs.curl}/bin:$PATH"
+        export PATH="${pkgs.curl}/bin:/usr/bin:/bin:$PATH"
         curl -fsSL https://claude.ai/install.sh | bash
       fi
     '';

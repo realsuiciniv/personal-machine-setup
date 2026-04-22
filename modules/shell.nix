@@ -73,6 +73,10 @@
         esac
         command brew "$@"
       }
+
+      # Escape hatch for quick/experimental aliases and machine-local config
+      # without rebuilding home-manager. Promote keepers into this module.
+      [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
     '';
   };
 

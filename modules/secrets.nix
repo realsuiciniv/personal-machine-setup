@@ -11,10 +11,6 @@
       anthropic_api_key = { };
       configcat_user    = { };
       configcat_pass    = { };
-      claude_credentials = {
-        path = "${config.home.homeDirectory}/.claude/.credentials.json";
-        mode = "0600";
-      };
     };
   };
 

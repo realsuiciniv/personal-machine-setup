@@ -16,6 +16,16 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# Finder search defaults to the CURRENT FOLDER (not "This Mac"/Spotlight-wide)
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+echo "→ Privacy: disable Spotlight/Siri web suggestions"
+# Stop Spotlight/Finder search from sending queries to Apple for "suggestions"
+defaults write com.apple.suggestions SuggestionsAppLibraryEnabled -bool false
+defaults write com.apple.assistant.support "Assistant Enabled" -bool false
+# Disable Safari's universal search (routes queries through Apple's servers)
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 echo "→ Screencapture"
 mkdir -p "$HOME/Pictures/Screenshots"

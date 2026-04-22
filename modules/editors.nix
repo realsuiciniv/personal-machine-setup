@@ -5,6 +5,11 @@
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    # Closure-size optimization: Lua is neovim's native language; modern plugins
+    # rarely need the Ruby or Python3 language providers. Skip them by default
+    # (matches the upcoming stateVersion 26.05 behavior).
+    withRuby = false;
+    withPython3 = false;
   };
 
   # Place nvim config tree (init.lua + lazy-lock + any lua/ subdir)

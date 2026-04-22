@@ -3,20 +3,13 @@
   programs.git = {
     enable = true;
 
-    userName  = "Vinicius Costa";
-    userEmail = "vinicius.costa@withclutch.com";
-
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        side-by-side = true;
-        line-numbers = true;
-        syntax-theme = "Dracula";
+    settings = {
+      user = {
+        name       = "Vinicius Costa";
+        email      = "vinicius.costa@withclutch.com";
+        signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
       };
-    };
 
-    extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = true;
       push = {
@@ -49,9 +42,11 @@
         renames = true;
         tool = "nvimdiff";
       };
-      mergetool."nvimdiff".cmd = ''nvim -d "$LOCAL" "$REMOTE" "$MERGED" -c "wincmd J"'';
+      mergetool = {
+        "nvimdiff".cmd = ''nvim -d "$LOCAL" "$REMOTE" "$MERGED" -c "wincmd J"'';
+        prompt = false;
+      };
       difftool.prompt = false;
-      mergetool.prompt = false;
 
       help.autocorrect = "prompt";
       column.ui = "auto";
@@ -63,16 +58,11 @@
         gpgsign = true;
       };
       gpg.format = "ssh";
-      # Populated once the new Mac's 1Password SSH key is generated.
-      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
 
-      # URL aliases
       url."https://github.com/dracula/".insteadOf = "dracula://";
 
-      # Global ignore
       core.excludesFile = "${config.home.homeDirectory}/.config/git/ignore";
 
-      # Dracula color scheme
       color.ui = "auto";
       "color \"branch\"" = {
         current = "cyan bold reverse";
@@ -98,12 +88,23 @@
         untracked = "red";
         updated = "green bold";
       };
-    };
 
-    aliases = {
-      coauthor = ''
-        !f() { msg="$1"; shift; for author in "$@"; do msg="$msg\n\nCo-authored-by: $author"; done; printf "%b" "$msg" | git commit -F -; }; f
-      '';
+      alias = {
+        coauthor = ''
+          !f() { msg="$1"; shift; for author in "$@"; do msg="$msg\n\nCo-authored-by: $author"; done; printf "%b" "$msg" | git commit -F -; }; f
+        '';
+      };
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      side-by-side = true;
+      line-numbers = true;
+      syntax-theme = "Dracula";
     };
   };
 

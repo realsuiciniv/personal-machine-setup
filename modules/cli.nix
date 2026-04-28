@@ -20,7 +20,7 @@
     httpie curl
 
     # System / process
-    bottom coreutils
+    bottom coreutils coreutils-prefixed
 
     # Security / certs / crypto
     mkcert gnupg

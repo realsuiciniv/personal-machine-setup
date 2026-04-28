@@ -34,8 +34,8 @@
     # Imaging
     imagemagick ghostscript potrace
 
-    # Postgres client (psql, pg_dump, pg_restore, libpq.dylib). Server NOT installed.
-    libpq
+    # Postgres client (psql, pg_dump, pg_restore, libpq.dylib).
+    postgresql_18
 
     # DB tools
     pgcli

@@ -1,11 +1,20 @@
 { pkgs, ... }:
 {
+  programs.gh = {
+    enable = true;
+    extensions = [ pkgs.gh-stack ];
+    settings = {
+      git_protocol = "https";
+      aliases.co = "pr checkout";
+    };
+  };
+
   home.packages = with pkgs; [
     # Search / view
     ripgrep fd bat eza jq yq-go glow
 
     # Git-adjacent (delta is provided by programs.git.delta in modules/git.nix)
-    lazygit gh
+    lazygit
 
     # Network / HTTP
     httpie curl

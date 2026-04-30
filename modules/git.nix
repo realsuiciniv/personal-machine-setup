@@ -91,12 +91,6 @@
         untracked = "red";
         updated = "green bold";
       };
-
-      alias = {
-        coauthor = ''
-          !f() { msg="$1"; shift; for author in "$@"; do msg="$msg\n\nCo-authored-by: $author"; done; printf "%b" "$msg" | git commit -F -; }; f
-        '';
-      };
     };
   };
 

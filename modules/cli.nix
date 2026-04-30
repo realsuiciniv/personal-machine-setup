@@ -14,7 +14,7 @@
     ripgrep fd bat eza jq yq-go glow
 
     # Git-adjacent (delta is provided by programs.git.delta in modules/git.nix)
-    lazygit
+    lazygit git-filter-repo
 
     # Network / HTTP
     httpie curl

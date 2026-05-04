@@ -42,6 +42,9 @@
 
     # Misc
     tmux
+
+    # LLM token reducer — compresses CLI output before it reaches AI coding assistants
+    (pkgs.callPackage ../packages/rtk.nix {})
   ];
 
   # Vendored pgcli config (syntax/color preferences). No DSNs stored here.

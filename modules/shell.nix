@@ -61,7 +61,7 @@
       # brew guardrail: brew is reserved for casks on this machine.
       brew() {
         case "$1" in
-          install|reinstall|upgrade)
+          install|reinstall)
             if [[ " $* " != *" --cask "* ]] && [[ "$2" != "--cask" ]]; then
               print -P "%F{red}✗ brew is reserved for casks on this machine.%f"
               print "  Formulae are managed by nix (~/projects/personal/personal-machine-setup/modules/cli.nix)."

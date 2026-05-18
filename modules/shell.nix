@@ -54,6 +54,17 @@
       hmu = "(cd ~/projects/personal/personal-machine-setup && nix flake update && home-manager switch --flake .#personal-laptop)";
     };
 
+    # Login-shell bootstrap. macOS system updates periodically reset
+    # /etc/zshrc and remove the nix-daemon source line, which drops
+    # ~/.nix-profile/bin out of PATH and breaks fnm, zoxide, eza, etc.
+    # Sourcing it from a home-manager-managed ~/.zprofile makes the
+    # bootstrap survive those resets.
+    profileExtra = ''
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+    '';
+
     initContent = ''
       setopt NO_NOMATCH
       eval "$(fnm env --use-on-cd --shell zsh)"

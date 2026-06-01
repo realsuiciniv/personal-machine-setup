@@ -43,6 +43,9 @@
     # Misc
     tmux
 
+    # Terminal-native runtime for managing multiple AI coding agents in one session
+    herdr
+
     # LLM token reducer — compresses CLI output before it reaches AI coding assistants
     (pkgs.callPackage ../packages/rtk.nix {})
   ];

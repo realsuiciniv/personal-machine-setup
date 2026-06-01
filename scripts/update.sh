@@ -19,6 +19,19 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
+# Authenticate GitHub for nix's fetcher and the API. `nix flake update` and
+# nix-prefetch-url hit the GitHub API and get rate-limited (HTTP 403) when
+# anonymous; reuse the gh CLI token so they don't. gh's own calls already
+# use this token.
+if [[ -z "${GITHUB_TOKEN:-}" ]] && command -v gh >/dev/null 2>&1; then
+  GITHUB_TOKEN="$(gh auth token 2>/dev/null || true)"
+fi
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+  export GITHUB_TOKEN
+  export NIX_CONFIG="${NIX_CONFIG:+$NIX_CONFIG
+}access-tokens = github.com=$GITHUB_TOKEN"
+fi
+
 bold() { printf '\033[1m%s\033[0m\n' "$*"; }
 green() { printf '\033[32m%s\033[0m' "$*"; }
 yellow() { printf '\033[33m%s\033[0m' "$*"; }

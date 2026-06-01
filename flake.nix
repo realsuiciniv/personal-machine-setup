@@ -13,20 +13,24 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    herdr = {
-      url = "github:ogulcancelik/herdr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, herdr, ... }:
+  outputs = { self, nixpkgs, home-manager, sops-nix, ... }:
     let
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ herdr.overlays.default ];
+        overlays = [
+          # pipx 1.8.0 in current nixpkgs fails its test suite on darwin
+          # (packaging PEP 508 normalization mismatch). Skip the tests.
+          (final: prev: {
+            pipx = prev.pipx.overridePythonAttrs (_: {
+              doCheck = false;
+              doInstallCheck = false;
+            });
+          })
+        ];
       };
     in
     {

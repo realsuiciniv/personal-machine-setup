@@ -54,4 +54,9 @@ let
 in
 {
   home.packages = [ herdr ];
+
+  # Vendored herdr config. herdr writes session.json / sockets / logs into
+  # ~/.config/herdr at runtime, but config.toml itself is read-only to herdr,
+  # so a managed symlink is safe. Edit the source in dotfiles/ and re-switch.
+  xdg.configFile."herdr/config.toml".source = ../dotfiles/herdr/config.toml;
 }

@@ -1,0 +1,18 @@
+onboarding = false
+
+[session]
+# Resume native agent conversations (claude --resume <id>) after a server
+# restart or machine reboot, using the session ids saved in session.json.
+resume_agents_on_restore = true
+
+[keys]
+prefix = "ctrl+b"
+
+[theme]
+name = "dracula"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[ui.toast]
+delivery = "herdr"

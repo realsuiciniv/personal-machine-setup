@@ -34,6 +34,10 @@
       claude-unsafe = "claude --dangerously-skip-permissions";
       claude-update = "claude update";
 
+      # The bare `zed` command is the AuthZed/SpiceDB CLI (modules/cli.nix).
+      # Launch the Zed.app editor from the terminal with `zeditor` instead.
+      zeditor = "/Applications/Zed.app/Contents/MacOS/cli";
+
       # Modern replacements
       ls  = "eza";
       ll  = "eza -l --git";
@@ -44,6 +48,10 @@
       g   = "git";
       gs  = "git status";
       gd  = "git diff";
+      # Pin explicitly: oh-my-zsh's git plugin also defines this, but the
+      # `gpr` binary from coreutils-prefixed (GNU `pr`) shares the name. Owning
+      # the alias here keeps `gpr` = pull --rebase regardless of plugin changes.
+      gpr = "git pull --rebase";
 
       # Containers (colima lifecycle — not autostarted)
       coup   = "colima start && docker ps";
@@ -63,6 +71,15 @@
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
+
+      # macOS path_helper (/etc/zprofile) rebuilds PATH with /etc/paths.d entries
+      # first, which hoists /opt/homebrew/bin ahead of the nix profile. brew is
+      # casks-only here, so its only bins are GUI launchers — and when one shares
+      # a name with a nix CLI (Zed.app's `zed` vs AuthZed's `zed`) the cask shim
+      # would shadow the tool, in scripts too. Re-prepend the nix profiles after
+      # path_helper has run and dedupe, so nix-managed CLIs always win.
+      path=("$HOME/.nix-profile/bin" "/nix/var/nix/profiles/default/bin" $path)
+      typeset -U path PATH
     '';
 
     initContent = ''

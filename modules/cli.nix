@@ -25,6 +25,13 @@
     # Security / certs / crypto
     mkcert gnupg
 
+    # AuthZed/SpiceDB CLI. Ships a `zed` binary that name-collides with the Zed
+    # editor's Homebrew cask launcher (/opt/homebrew/bin/zed -> Zed.app).
+    # modules/shell.nix re-prepends the nix profile ahead of /opt/homebrew/bin in
+    # PATH so this `zed` wins (in scripts too); the editor stays reachable via the
+    # `zeditor` alias defined there.
+    spicedb-zed
+
     # Cloud CLIs
     awscli2
 

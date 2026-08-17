@@ -7,7 +7,7 @@ smart_completion = True
 
 # Display the completions in several columns. (More completions will be
 # visible.)
-wider_completion_menu = False
+wider_completion_menu = True
 
 # Do not create new connections for refreshing completions; Equivalent to
 # always running with the --single-connection flag.
@@ -17,7 +17,7 @@ always_use_single_connection = False
 # this is set to True, then the end of the statements must have a semi-colon.
 # If this is set to False then sql statements can't be split into multiple
 # lines. End of line (return) is considered as the end of the statement.
-multi_line = False
+multi_line = True
 
 # If multi_line_mode is set to "psql", in multi-line mode, [Enter] will execute
 # the current input if the input ends in a semicolon.
@@ -47,7 +47,7 @@ destructive_statements_require_transaction = False
 expand = False
 
 # Enables auto expand mode, which is similar to `\x auto` in psql.
-auto_expand = False
+auto_expand = True
 
 # Auto-retry queries on connection failures and other operational errors. If
 # False, will prompt to rerun the failed query instead of auto-retrying.
@@ -71,7 +71,7 @@ alias_map_file =
 log_file = default
 
 # keyword casing preference. Possible values: "lower", "upper", "auto"
-keyword_casing = auto
+keyword_casing = upper
 
 # casing_file location.
 # In Unix/Linux: ~/.config/pgcli/casing
@@ -124,12 +124,12 @@ show_bottom_toolbar = True
 # sql-update-1, sql-update-2 (formatter with sql-* prefix can format query
 # output to executable insertion or updating sql).
 # Recommended: psql, fancy_grid and grid.
-table_format = psql
+table_format = fancy_grid
 
 # Syntax Style. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,
 # native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,
 # colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity
-syntax_style = default
+syntax_style = monokai
 
 # Keybindings:
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.

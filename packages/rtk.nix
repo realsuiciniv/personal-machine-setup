@@ -1,10 +1,10 @@
 { stdenv, fetchurl }:
 stdenv.mkDerivation {
   pname = "rtk";
-  version = "0.48.0";
+  version = "0.49.0";
   src = fetchurl {
-    url = "https://github.com/rtk-ai/rtk/releases/download/v0.48.0/rtk-aarch64-apple-darwin.tar.gz";
-    sha256 = "1nz04cq1r7k3gjjg8qc0lfv78gxswl4a0lsf7ybbci57jg62b82g";
+    url = "https://github.com/rtk-ai/rtk/releases/download/v0.49.0/rtk-aarch64-apple-darwin.tar.gz";
+    sha256 = "00df2f705ylfc00bnjp2ibxiclfksnj1lwysh0x9k1i6namypgxv";
   };
   dontUnpack = true;
   installPhase = ''

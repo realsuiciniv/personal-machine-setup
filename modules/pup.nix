@@ -1,24 +1,24 @@
 { pkgs, lib, ... }:
 
 let
-  version = "1.18.1";
+  version = "1.22.1";
 
   sources = {
     "aarch64-darwin" = {
       url = "https://github.com/datadog-labs/pup/releases/download/v${version}/pup_${version}_Darwin_arm64.tar.gz";
-      sha256 = "bffa10dd45eae9768ad5a687ee67a3a131314b72d6c7cf730415ae8f744d207b";
+      sha256 = "ad6f155c51443fa8303396679f464e666fbcdee56c5424f442f1c9bc9d048364";
     };
     "x86_64-darwin" = {
       url = "https://github.com/datadog-labs/pup/releases/download/v${version}/pup_${version}_Darwin_x86_64.tar.gz";
-      sha256 = "dc6b7c82a7ace6b02566881c43e3c5cc1bdae76231681ee41992f0178a8134e4";
+      sha256 = "ab57b3af24469585a0041f57d79487bace90261ca2c7a10defbb2faa0c5cf83f";
     };
     "aarch64-linux" = {
       url = "https://github.com/datadog-labs/pup/releases/download/v${version}/pup_${version}_Linux_arm64.tar.gz";
-      sha256 = "85619302e9b74a091ee4ab76f47b7a435588db61369dca9058376de229d5f11c";
+      sha256 = "8548cbd4bbb188bc6c6cd0e293fb757aca56ce6dca0b50e517cd4138b50dd07d";
     };
     "x86_64-linux" = {
       url = "https://github.com/datadog-labs/pup/releases/download/v${version}/pup_${version}_Linux_x86_64.tar.gz";
-      sha256 = "e966dd6fe01cd3b75cc4f8eddf5bb38a463097eecf73cfbe0c4437db84604853";
+      sha256 = "7960cc0c63c3b9f227efd17eace4bdcf3cc3e0a4d43f563aae54a4248b174999";
     };
   };
 

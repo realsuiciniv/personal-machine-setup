@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 let
-  version = "0.9.0";
+  version = "0.9.1";
 
   # Prebuilt release binaries. herdr's flake builds libghostty-vt from source
   # via zig, which needs the macOS SDK and fails in the nix sandbox
@@ -9,19 +9,19 @@ let
   sources = {
     "aarch64-darwin" = {
       url = "https://github.com/ogulcancelik/herdr/releases/download/v${version}/herdr-macos-aarch64";
-      sha256 = "05zg386gfqrl3x112rzjvla9xqmqlq19z9l9qxcq0qkjk3q3vd9j";
+      sha256 = "1pl97hqs421drswqb0mbilk5fcv94nqdr2dah3x5djpsmpksgisz";
     };
     "x86_64-darwin" = {
       url = "https://github.com/ogulcancelik/herdr/releases/download/v${version}/herdr-macos-x86_64";
-      sha256 = "05ngh5ark2l13fjjr75cdiw48yh9k8f4348lz84li9r6l6r21jfh";
+      sha256 = "150yrqmr3mlbr19k3d55afkzdr2l21jldnzvbsmm9zimk5iy0fq5";
     };
     "aarch64-linux" = {
       url = "https://github.com/ogulcancelik/herdr/releases/download/v${version}/herdr-linux-aarch64";
-      sha256 = "1lph2n8h5515kq06ypgny8cx7zr12qzi2rskil9pnhp7nw7v53cw";
+      sha256 = "17ldpldp5ayf4qqaipjq5bn51b9xf2irnglqkaivjb2zfkgg9k7l";
     };
     "x86_64-linux" = {
       url = "https://github.com/ogulcancelik/herdr/releases/download/v${version}/herdr-linux-x86_64";
-      sha256 = "07xp7yv1mn64r9hrp3830c3c3p5hh03jf6ykjbd4706xb08s18ag";
+      sha256 = "1dslbhymcl24sk93q1ddb3fa8b35iw23zm710vq1wrgbdg8zw0ia";
     };
   };
 

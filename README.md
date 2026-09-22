@@ -28,7 +28,7 @@ modules/
   shell.nix                     zsh + powerlevel10k + fnm hook + aliases
   git.nix                       git config, delta, SSH signing
   editors.nix                   neovim
-  languages.nix                 node/java/python/go/bun/pnpm/dotnet/llvm
+  languages.nix                 node/java/python/go/bun/pnpm/llvm
   containers.nix                docker client + colima
   ssh.nix                       ssh_config (1Password IdentityAgent)
   claude-code.nix               claude-code CLI + dotfiles

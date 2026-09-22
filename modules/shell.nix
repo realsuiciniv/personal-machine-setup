@@ -129,7 +129,6 @@
     VISUAL = "nvim";
     USE_BUILTIN_RIPGREP = "0";
     BUN_INSTALL = "${config.home.homeDirectory}/.bun";
-    DOTNET_ROOT = "${pkgs.dotnet-sdk}/libexec";
     # sops looks at macOS default (~/Library/Application Support/sops/age/keys.txt)
     # but we store the key under XDG. Point sops at it for every shell.
     SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
@@ -141,7 +140,6 @@
 
   home.sessionPath = [
     "${config.home.homeDirectory}/.bun/bin"
-    "${config.home.homeDirectory}/.dotnet/tools"
     "${config.home.homeDirectory}/.local/bin"
     "${config.home.homeDirectory}/projects/clutch/clutch-cli"
   ];

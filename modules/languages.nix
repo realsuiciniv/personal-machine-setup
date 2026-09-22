@@ -22,9 +22,6 @@
     pnpm
     ni          # antfu's universal wrapper: picks npm/yarn/pnpm/bun per project
 
-    # .NET
-    dotnet-sdk
-
     # LLVM toolchain (flags exported below)
     llvm
   ];

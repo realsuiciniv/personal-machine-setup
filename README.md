@@ -99,6 +99,8 @@ git revert HEAD && hms
 - Language runtime or toolchain: `modules/languages.nix`
 - Editor config: `modules/editors.nix` or `dotfiles/nvim/`
 - GUI app: not managed by nix. Install by hand (brew cask, App Store, direct download).
+  Exception: `modules/cli.nix` bootstraps the `ungoogled-chromium` cask on activation
+  because `mmdc` (mermaid-cli) needs a Chromium binary.
 
 ## Per-project dev shells
 

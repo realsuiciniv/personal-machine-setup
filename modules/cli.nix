@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.gh = {
     enable = true;
@@ -41,6 +41,20 @@
     # Imaging
     imagemagick ghostscript potrace
 
+    # Mermaid diagrams -> SVG/PNG/PDF (`mmdc`). Renders via Puppeteer, which
+    # needs a Chromium binary; nixpkgs' chromium is Linux-only, so on macOS we
+    # point it at the Chromium.app cask, bootstrapped by home.activation below.
+    # Wrapped so the variable is scoped to mmdc and doesn't leak into shells.
+    (symlinkJoin {
+      name = "mermaid-cli-${mermaid-cli.version}";
+      paths = [ mermaid-cli ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/mmdc \
+          --set PUPPETEER_EXECUTABLE_PATH /Applications/Chromium.app/Contents/MacOS/Chromium
+      '';
+    })
+
     # Postgres client (psql, pg_dump, pg_restore, libpq.dylib).
     postgresql_18
 
@@ -53,6 +67,17 @@
     # LLM token reducer — compresses CLI output before it reaches AI coding assistants
     (pkgs.callPackage ../packages/rtk.nix {})
   ];
+
+  # Bootstrap the Chromium cask that mermaid-cli's Puppeteer needs. Casks are
+  # otherwise installed by hand (see README); this is the one exception because
+  # a CLI managed here depends on it. Idempotent: skipped if Chromium.app exists.
+  # Install-only: never upgrades or removes it.
+  home.activation.bootstrapChromium =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -d /Applications/Chromium.app ]; then
+        run /opt/homebrew/bin/brew install --cask ungoogled-chromium
+      fi
+    '';
 
   # Vendored pgcli config (syntax/color preferences). No DSNs stored here.
   xdg.configFile."pgcli/config".source = ../dotfiles/pgcli/config;

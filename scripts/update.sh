@@ -13,7 +13,7 @@
 #   scripts/update.sh pinned [tool...] # bump pinned tools (default: all outdated)
 #   scripts/update.sh all              # inputs + all outdated pinned tools
 #
-# Pinned tools: rtk pup configcat
+# Pinned tools: herdr pup configcat
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -44,7 +44,6 @@ dim() { printf '\033[2m%s\033[0m' "$*"; }
 
 tool_file() {
   case "$1" in
-    rtk) echo "packages/rtk.nix" ;;
     herdr) echo "modules/herdr.nix" ;;
     pup) echo "modules/pup.nix" ;;
     configcat) echo "modules/configcat.nix" ;;
@@ -54,7 +53,6 @@ tool_file() {
 
 tool_repo() {
   case "$1" in
-    rtk) echo "rtk-ai/rtk" ;;
     herdr) echo "ogulcancelik/herdr" ;;
     pup) echo "datadog-labs/pup" ;;
     configcat) echo "configcat/cli" ;;
@@ -65,9 +63,6 @@ tool_repo() {
 # URL templates, newline-separated, in file order.
 tool_urls() {
   case "$1" in
-    rtk)
-      echo "https://github.com/rtk-ai/rtk/releases/download/v{V}/rtk-aarch64-apple-darwin.tar.gz"
-      ;;
     herdr)
       echo "https://github.com/ogulcancelik/herdr/releases/download/v{V}/herdr-macos-aarch64"
       echo "https://github.com/ogulcancelik/herdr/releases/download/v{V}/herdr-macos-x86_64"
@@ -90,7 +85,7 @@ tool_urls() {
   esac
 }
 
-ALL_TOOLS=(rtk herdr pup configcat)
+ALL_TOOLS=(herdr pup configcat)
 
 current_version() {
   local file; file="$(tool_file "$1")"
@@ -156,7 +151,7 @@ bump_tool() {
     OLD="${old_hashes[$i]}" NEW="$new_hash" perl -i -pe 's/\Q$ENV{OLD}\E/$ENV{NEW}/g' "$file"
   done
 
-  # Version string (and, for rtk, the literal version in its URL).
+  # Version string.
   OLD="$cur" NEW="$new" perl -i -pe 's/\Q$ENV{OLD}\E/$ENV{NEW}/g' "$file"
   echo "  $(green "updated") $file"
 }

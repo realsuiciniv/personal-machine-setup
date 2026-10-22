@@ -63,9 +63,6 @@
 
     # Misc
     tmux
-
-    # LLM token reducer — compresses CLI output before it reaches AI coding assistants
-    (pkgs.callPackage ../packages/rtk.nix {})
   ];
 
   # Bootstrap the Chromium cask that mermaid-cli's Puppeteer needs. Casks are

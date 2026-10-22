@@ -36,7 +36,7 @@
     awscli2
 
     # Native-dep libs (for building tools like imagemagick below)
-    pkg-config openssl_3 readline xz zlib
+    pkg-config openssl readline xz zlib
 
     # Imaging
     imagemagick ghostscript potrace

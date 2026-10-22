@@ -209,3 +209,9 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>",           { silent = tru
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",    { silent = true, desc = "Find files" })
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>",     { silent = true, desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>",       { silent = true, desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fG", function()
+  require("telescope.builtin").live_grep({ glob_pattern = vim.fn.input("Glob: ") })
+end, { desc = "Live grep with glob" })
+
+vim.opt.grepprg = "rg --vimgrep --smart-case"
+vim.opt.grepformat = "%f:%l:%c:%m"

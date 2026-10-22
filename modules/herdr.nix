@@ -59,4 +59,16 @@ in
   # ~/.config/herdr at runtime, but config.toml itself is read-only to herdr,
   # so a managed symlink is safe. Edit the source in dotfiles/ and re-switch.
   xdg.configFile."herdr/config.toml".source = ../dotfiles/herdr/config.toml;
+
+  # Refresh the Claude Code hook script and settings.json hooks when a herdr
+  # bump ships a newer integration version, so agent state and sessions keep
+  # reporting to herdr.
+  home.activation.syncHerdrClaudeIntegration =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ -d "$HOME/.claude" ]; then
+        case "$(${herdr}/bin/herdr integration status --outdated-only 2>&1)" in
+          *"integration install claude"*) ${herdr}/bin/herdr integration install claude ;;
+        esac
+      fi
+    '';
 }
